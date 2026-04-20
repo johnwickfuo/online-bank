@@ -104,6 +104,7 @@
                     country: '',
                     accounttype: '',
                     pin: '',
+                    currency: '',
                     password: '',
                     password_confirmation: '',
                     terms: false
@@ -442,9 +443,35 @@
                                     </div>
                                     <p class="mt-1 text-xs text-gray-500">Your PIN will be required to authorize transactions</p>
                                 </div>
+
+                                <!-- Preferred Currency -->
+                                <div>
+                                    <label for="currency" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Preferred Currency <span class="text-gray-400 text-xs font-normal">(optional)</span>
+                                    </label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <i data-lucide="coins" class="h-5 w-5 text-gray-400"></i>
+                                        </div>
+                                        <select
+                                            id="currency"
+                                            name="currency"
+                                            x-model="formData.currency"
+                                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 appearance-none">
+                                            <option value="">Use site default ({{ $settings->s_currency }})</option>
+                                            @foreach($currencies as $code => $data)
+                                                <option value="{{ $code }}">{{ $code }} - {{ $data['name'] }} ({{ $data['symbol'] }})</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                            <i data-lucide="chevron-down" class="h-5 w-5 text-gray-400"></i>
+                                        </div>
+                                    </div>
+                                    <p class="mt-1 text-xs text-gray-500">You can change this anytime from your account settings</p>
+                                </div>
                             </div>
                         </div>
-                        
+
                         <!-- Step 4: Security -->
                         <div x-show="step === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
                             <div class="text-center mb-6">
@@ -647,6 +674,7 @@
                         <input type="hidden" name="country" :value="formData.country">
                         <input type="hidden" name="accounttype" :value="formData.accounttype">
                         <input type="hidden" name="pin" :value="formData.pin">
+                        <input type="hidden" name="currency" :value="formData.currency">
                         <input type="hidden" name="password" :value="formData.password">
                         <input type="hidden" name="password_confirmation" :value="formData.password_confirmation">
                     </form>

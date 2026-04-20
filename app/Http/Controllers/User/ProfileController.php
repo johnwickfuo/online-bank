@@ -92,6 +92,21 @@ class ProfileController extends Controller
     }
 
 
+    // Update preferred currency
+    public function updatecurrency(Request $request)
+    {
+        $request->validate([
+            'currency' => ['nullable', 'string', 'max:10'],
+        ]);
+
+        User::where('id', Auth::user()->id)
+            ->update([
+                'currency' => $request->currency ?: null,
+            ]);
+
+        return redirect()->back()->with('success', 'Currency preference updated successfully!');
+    }
+
     // update Profile photo
     public function updateprofilephoto(Request $request){
         

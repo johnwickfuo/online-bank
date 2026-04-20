@@ -70,6 +70,7 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => $input['phone'],
             'username' => $input['username'],
             'country' => $input['country'],
+            'currency' => $input['currency'] ?? null,
             'accounttype' => $input['accounttype'],
             'pin'=> $input['pin'],
             'ref_by' => $ref_by_id,

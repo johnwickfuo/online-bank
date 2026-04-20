@@ -128,8 +128,11 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('dashboard')->group(func
 
 		Route::put('updatepass', [ProfileController::class, 'updatepass'])->name('updateuserpass');
 
-		// Update emal preference
+		// Update email preference
 		Route::put('update-email-preference', [ProfileController::class, 'updateemail'])->name('updateemail');
+
+		// Update currency preference
+		Route::put('updatecurrency', [ProfileController::class, 'updatecurrency'])->name('updatecurrency');
 
 		// Deposits Rotoute
 		Route::get('get-method/{id}', [DepositController::class, 'getmethod'])->name('getmethod');

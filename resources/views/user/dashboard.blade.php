@@ -78,7 +78,7 @@
         <div class="bg-gradient-to-r from-primary-50 to-white rounded-xl p-4 border border-primary-100 flex items-center justify-between">
             <div>
                 <p class="text-xs text-gray-800">Current Balance</p>
-                <p class="text-lg font-bold text-gray-800">{{ $settings->currency }}{{ number_format(Auth::user()->account_bal,0, '.', ',') }}</p>
+                <p class="text-lg font-bold text-gray-800">{{ $userCurrencySymbol }}{{ number_format(Auth::user()->account_bal,0, '.', ',') }}</p>
             </div>
             <div class="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center">
                 <i data-lucide="wallet" class="h-5 w-5 text-gray-800"></i>
@@ -87,7 +87,7 @@
         <div class="bg-gradient-to-r from-green-50 to-white rounded-xl p-4 border border-green-100 flex items-center justify-between">
             <div>
                 <p class="text-xs text-gray-500">Monthly Income</p>
-                <p class="text-lg font-bold text-green-700">{{ $settings->currency }}{{ number_format($monthly_deposits ?? 0,0, '.', ',') }}</p>
+                <p class="text-lg font-bold text-green-700">{{ $userCurrencySymbol }}{{ number_format($monthly_deposits ?? 0,0, '.', ',') }}</p>
             </div>
             <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
                 <i data-lucide="trending-up" class="h-5 w-5 text-green-600"></i>
@@ -96,7 +96,7 @@
         <div class="bg-gradient-to-r from-red-50 to-white rounded-xl p-4 border border-red-100 flex items-center justify-between">
             <div>
                 <p class="text-xs text-gray-500">Monthly Outgoing</p>
-                <p class="text-lg font-bold text-red-700">{{ $settings->currency }}{{ number_format($monthly_expenses ?? 0,0, '.', ',') }}</p>
+                <p class="text-lg font-bold text-red-700">{{ $userCurrencySymbol }}{{ number_format($monthly_expenses ?? 0,0, '.', ',') }}</p>
             </div>
             <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center">
                 <i data-lucide="trending-down" class="h-5 w-5 text-red-600"></i>
@@ -105,7 +105,7 @@
         <div class="bg-gradient-to-r from-purple-50 to-white rounded-xl p-4 border border-purple-100 flex items-center justify-between">
             <div>
                 <p class="text-xs text-gray-500">Transaction Limit</p>
-                <p class="text-lg font-bold text-purple-700">{{ $settings->currency }}{{ number_format(Auth::user()->limit, 2, '.', ',') }}</p>
+                <p class="text-lg font-bold text-purple-700">{{ $userCurrencySymbol }}{{ number_format(Auth::user()->limit, 2, '.', ',') }}</p>
             </div>
             <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
                 <i data-lucide="gauge" class="h-5 w-5 text-purple-600"></i>
@@ -182,7 +182,7 @@
                             </button>
                         </div>
                         <div x-show="balanceVisible" x-transition class="text-3xl font-bold">
-                            {{ $settings->currency }}{{ number_format(Auth::user()->account_bal,0, '.', ',') }} {{ $settings->s_currency }}
+                            {{ $userCurrencySymbol }}{{ number_format(Auth::user()->account_bal,0, '.', ',') }} {{ $userCurrencyCode }}
                         </div>
                         <div x-show="!balanceVisible" x-transition class="text-3xl font-bold">
                             *******
@@ -536,7 +536,7 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <div class="text-sm font-medium text-gray-900">{{ $settings->currency }}{{ number_format($transaction->amount, 2, '.', ',') }} {{ $settings->s_currency }}</div>
+                                            <div class="text-sm font-medium text-gray-900">{{ $userCurrencySymbol }}{{ number_format($transaction->amount, 2, '.', ',') }} {{ $userCurrencyCode }}</div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $isCredit ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
@@ -612,7 +612,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm text-gray-500">Transaction Limit</p>
-                            <p class="text-lg font-bold text-gray-900 truncate">{{ $settings->currency }}{{ number_format(Auth::user()->limit, 2, '.', ',') }}</p>
+                            <p class="text-lg font-bold text-gray-900 truncate">{{ $userCurrencySymbol }}{{ number_format(Auth::user()->limit, 2, '.', ',') }}</p>
                         </div>
                     </div>
 
@@ -623,7 +623,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm text-gray-500">Pending Transactions</p>
-                            <p class="text-lg font-bold text-gray-900 truncate">{{ $settings->currency }}{{ number_format($total_deposited_pending + $total_withdrawal_pending, 2, '.', ',') }}</p>
+                            <p class="text-lg font-bold text-gray-900 truncate">{{ $userCurrencySymbol }}{{ number_format($total_deposited_pending + $total_withdrawal_pending, 2, '.', ',') }}</p>
                         </div>
                     </div>
 
@@ -634,7 +634,7 @@
                         </div>
                         <div class="flex-1 min-w-0">
                             <p class="text-sm text-gray-500">Transaction Volume</p>
-                            <p class="text-lg font-bold text-gray-900 truncate">{{ $settings->currency }}{{ number_format($total_withdrawal+$deposited, 2, '.', ',') }}</p>
+                            <p class="text-lg font-bold text-gray-900 truncate">{{ $userCurrencySymbol }}{{ number_format($total_withdrawal+$deposited, 2, '.', ',') }}</p>
                         </div>
                     </div>
 

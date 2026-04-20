@@ -311,6 +311,63 @@
         </div>
     </div>
 
+    <!-- Currency Preference Card (outside the main grid, full width below) -->
+    <div class="mt-6">
+        <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+            <div class="border-b border-gray-200 px-6 py-4 flex items-center">
+                <i data-lucide="coins" class="h-5 w-5 mr-2 text-primary-600"></i>
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">Currency Preference</h2>
+                    <p class="text-sm text-gray-500 mt-0.5">Choose the currency used to display your account balances and transactions</p>
+                </div>
+            </div>
+
+            <div class="p-6">
+                @php
+                    $userCurrCode = Auth::user()->currency ?? $settings->s_currency;
+                    $currData = config('currencies')[$userCurrCode] ?? null;
+                @endphp
+
+                <div class="mb-4 p-3 bg-blue-50 border border-blue-100 rounded-lg flex items-center">
+                    <i data-lucide="info" class="h-4 w-4 text-blue-500 mr-2 flex-shrink-0"></i>
+                    <p class="text-sm text-blue-700">
+                        Current currency:
+                        <strong>
+                            {{ $userCurrCode }}
+                            @if($currData)
+                                &mdash; {{ $currData['name'] }} ({{ $currData['symbol'] }})
+                            @endif
+                        </strong>
+                    </p>
+                </div>
+
+                <form action="{{ route('updatecurrency') }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-4">
+                        <label for="currency_pref" class="block text-sm font-medium text-gray-700 mb-1">Select Currency</label>
+                        <select
+                            id="currency_pref"
+                            name="currency"
+                            class="block w-full py-3 px-4 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option value="">Use site default ({{ $settings->s_currency }})</option>
+                            @foreach($currencies as $code => $data)
+                                <option value="{{ $code }}" {{ (Auth::user()->currency === $code) ? 'selected' : '' }}>
+                                    {{ $code }} &mdash; {{ $data['name'] }} ({{ $data['symbol'] }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button type="submit"
+                        class="inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
+                        <i data-lucide="save" class="h-4 w-4 mr-2"></i>
+                        Save Currency
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Profile Picture Upload Modal -->
     <div
         x-show="showProfilePictureModal"

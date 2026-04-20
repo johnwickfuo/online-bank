@@ -628,6 +628,18 @@
                     </select>
                     </div>
 
+                    <div class="form-group col-md-12">
+                        <h6 class="text-{{ $text }}">Preferred Currency</h6>
+                        <select class="form-control text-{{ $text }}" name="currency">
+                            <option value="">Site Default ({{ $settings->s_currency }})</option>
+                            @foreach($currencies as $code => $data)
+                                <option value="{{ $code }}" {{ ($user->currency === $code) ? 'selected' : '' }}>
+                                    {{ $code }} - {{ $data['name'] }} ({{ $data['symbol'] }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                      <div class="form-group">
                         <h6 class="text-{{ $text }}">Account Limit ({{$settings->currency}}) </h6>
                         <input type="number" class="form-control  text-{{ $text }}"

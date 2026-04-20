@@ -47,5 +47,22 @@ class AppServiceProvider extends ServiceProvider
         View::share('terms', $terms);
         View::share('moresettings', $moreset);
         View::share('mod', $settings->modules);
+        View::share('currencies', config('currencies'));
+
+        // Inject per-user currency symbol/code into all user-facing views.
+        // Falls back to the global settings currency when the user has not set a preference.
+        View::composer('user.*', function ($view) use ($settings) {
+            if (auth()->check()) {
+                $user = auth()->user();
+                $currencies = config('currencies');
+                $code   = $user->currency ?: $settings->s_currency;
+                $symbol = $currencies[$code]['symbol'] ?? $settings->currency;
+            } else {
+                $code   = $settings->s_currency;
+                $symbol = $settings->currency;
+            }
+            $view->with('userCurrencyCode', $code);
+            $view->with('userCurrencySymbol', $symbol);
+        });
     }
 }
